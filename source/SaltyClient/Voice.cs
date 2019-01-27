@@ -333,6 +333,12 @@ namespace SaltyClient
         {
             PluginCommand pluginCommand = PluginCommand.Deserialize((string)args[0]);
 
+            if (pluginCommand.Command == Command.Ping && Voice._nextUpdate.AddSeconds(1) > DateTime.Now)
+            {
+                Voice.ExecuteCommand(new PluginCommand(Voice._serverUniqueIdentifier));
+                return;
+            }
+
             if (!pluginCommand.TryGetState(out PluginState pluginState))
                 return;
 
