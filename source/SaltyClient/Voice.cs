@@ -80,6 +80,8 @@ namespace SaltyClient
             RAGE.Events.Add(SaltyShared.Event.Voice_EndCall, Voice.OnEndCall);
             RAGE.Events.Add(SaltyShared.Event.Voice_SetRadioChannel, Voice.OnSetRadioChannel);
             RAGE.Events.Add(SaltyShared.Event.Voice_TalkingOnRadio, Voice.OnPlayerTalkingOnRadio);
+            RAGE.Events.Add(SaltyShared.Event.Player_Died, Voice.OnPlayerDied);
+            RAGE.Events.Add(SaltyShared.Event.Player_Revived, Voice.OnPlayerRevived);
 
             // Salty Chat Events
             RAGE.Events.Add("SaltyChat_OnConnected", Voice.OnPluginConnected);
