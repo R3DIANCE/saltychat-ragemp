@@ -26,8 +26,6 @@ namespace SaltyClient
     public class Voice : RAGE.Events.Script
     {
         #region Props/Fields
-        public static readonly float[] VoiceRanges = { 3f, 8f, 15f, 32f };
-
         private static RAGE.Ui.HtmlWindow _htmlWindow = default;
 
         private static bool _isConnected { get; set; }
@@ -452,7 +450,7 @@ namespace SaltyClient
                     continue;
 
                 if (!nPlayer.TryGetSharedData(SaltyShared.SharedData.Voice_VoiceRange, out float nPlayerVoiceRange))
-                    nPlayerVoiceRange = Voice.VoiceRanges[2];
+                    nPlayerVoiceRange = SaltyShared.SharedData.VoiceRanges[2];
 
                 Voice.ExecuteCommand(new PluginCommand(Command.PlayerStateUpdate,Voice._serverUniqueIdentifier,new PlayerState(
                             nPlayerName,
@@ -472,23 +470,23 @@ namespace SaltyClient
         {
             if (!RAGE.Elements.Player.LocalPlayer.TryGetSharedData(SaltyShared.SharedData.Voice_VoiceRange, out float voiceRange))
             {
-                RAGE.Events.CallRemote(SaltyShared.Event.Voice_SetVoiceRange, Voice.VoiceRanges[1]);
+                RAGE.Events.CallRemote(SaltyShared.Event.Voice_SetVoiceRange, SaltyShared.SharedData.VoiceRanges[1]);
                 return;
             }
 
-            int index = Array.IndexOf(Voice.VoiceRanges, voiceRange);
+            int index = Array.IndexOf(SaltyShared.SharedData.VoiceRanges, voiceRange);
 
             if (index < 0)
             {
-                RAGE.Events.CallRemote(SaltyShared.Event.Voice_SetVoiceRange, Voice.VoiceRanges[1]);
+                RAGE.Events.CallRemote(SaltyShared.Event.Voice_SetVoiceRange, SaltyShared.SharedData.VoiceRanges[1]);
             }
-            else if (index + 1 >= Voice.VoiceRanges.Length)
+            else if (index + 1 >= SaltyShared.SharedData.VoiceRanges.Length)
             {
-                RAGE.Events.CallRemote(SaltyShared.Event.Voice_SetVoiceRange, Voice.VoiceRanges[0]);
+                RAGE.Events.CallRemote(SaltyShared.Event.Voice_SetVoiceRange, SaltyShared.SharedData.VoiceRanges[0]);
             }
             else
             {
-                RAGE.Events.CallRemote(SaltyShared.Event.Voice_SetVoiceRange, Voice.VoiceRanges[index + 1]);
+                RAGE.Events.CallRemote(SaltyShared.Event.Voice_SetVoiceRange, SaltyShared.SharedData.VoiceRanges[index + 1]);
             }
         }
 

@@ -54,7 +54,7 @@ namespace SaltyServer
         public void OnPlayerConnected(GTANetworkAPI.Client client)
         {
             client.SetSharedData(SaltyShared.SharedData.Voice_TeamSpeakName, Voice.GetTeamSpeakName());
-            client.SetSharedData(SaltyShared.SharedData.Voice_VoiceRange, 10f);
+            client.SetSharedData(SaltyShared.SharedData.Voice_VoiceRange, SaltyShared.SharedData.VoiceRanges[1]);
 
             client.TriggerEvent(SaltyShared.Event.Voice_Initialize, Voice.ServerUniqueIdentifier, Voice.RequiredUpdateBranch, Voice.MinimumPluginVersion, Voice.SoundPack, Voice.IngameChannel, Voice.IngameChannelPassword);
         }
