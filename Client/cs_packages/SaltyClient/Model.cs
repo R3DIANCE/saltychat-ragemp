@@ -113,6 +113,17 @@ namespace SaltyClient
         }
 
         /// <summary>
+        /// Use this for <see cref="Command.Pong"/>
+        /// </summary>
+        /// <param name="command"></param>
+        /// <param name="parameter"></param>
+        internal PluginCommand(string serverUniqueIdentifier)
+        {
+            this.Command = Command.Pong;
+            this.ServerUniqueIdentifier = serverUniqueIdentifier;
+        }
+
+        /// <summary>
         /// Use this with <see cref="Command.Initiate"/>
         /// </summary>
         /// <param name="command"></param>
@@ -161,15 +172,18 @@ namespace SaltyClient
 
         public bool TryGetState(out PluginState pluginState)
         {
-            try
+            if (this.Command == Command.StateUpdate)
             {
-                pluginState = this.Parameter.ToObject<PluginState>();
+                try
+                {
+                    pluginState = this.Parameter.ToObject<PluginState>();
 
-                return true;
-            }
-            catch
-            {
-                // do nothing
+                    return true;
+                }
+                catch
+                {
+                    // do nothing
+                }
             }
 
             pluginState = default;
@@ -302,6 +316,16 @@ namespace SaltyClient
         Initiate,
 
         /// <summary>
+        /// Will be sent by the WebSocket and should be answered with a <see cref="Command.Pong"/>
+        /// </summary>
+        Ping,
+
+        /// <summary>
+        /// Answer to a <see cref="Command.Ping"/> request
+        /// </summary>
+        Pong,
+
+        /// <summary>
         /// Will be sent by the WebSocket on state changes (e.g. mic muted/unmuted) and received by <see cref="Voice.OnPluginMessage(object[])"/> - uses <see cref="PluginState"/> as parameter
         /// </summary>
         StateUpdate,
@@ -363,6 +387,7 @@ namespace SaltyClient
     }
     #endregion
 
+    #region TSVector
     public class TSVector
     {
         public float X;
@@ -383,4 +408,5 @@ namespace SaltyClient
             this.Z = position.Z;
         }
     }
+    #endregion
 }
