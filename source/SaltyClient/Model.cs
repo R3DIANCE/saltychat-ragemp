@@ -387,6 +387,7 @@ namespace SaltyClient
     }
     #endregion
 
+    #region TSVector
     public class TSVector
     {
         public float X;
@@ -407,4 +408,5 @@ namespace SaltyClient
             this.Z = position.Z;
         }
     }
+    #endregion
 }
